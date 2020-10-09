@@ -3,10 +3,11 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 const registrationRouter = require('./Routes/postRouter');
+const config = require('../config/config');
 
 const mongoURL = 'mongodb+srv://adiviswa:Blastingdiapers1-@zeus.wyvkg.azure.mongodb.net/test';
 
-mongoose.connect(mongoURL , {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(config.mongoURL, {useNewUrlParser: true, useUnifiedTopology: true})
 .then(() => {
     const app = express();
     app.use(bodyParser.json());
