@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
-const registrationRouter = require('../src/Routes/registerRouter');
+const registrationRouter = require('./Routes/postRouter');
 
 const mongoURL = 'mongodb+srv://adiviswa:Blastingdiapers1-@zeus.wyvkg.azure.mongodb.net/test';
 
