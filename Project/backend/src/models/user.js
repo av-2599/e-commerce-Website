@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const mongooseFieldEncryption = require('mongoose-field-encryption').fieldEncryption;
 
 const userSchema = mongoose.Schema({
     firstName: {
@@ -27,11 +26,6 @@ const userSchema = mongoose.Schema({
         type: String,
         required: true,
     }
-});
-
-userSchema.plugin(mongooseFieldEncryption, {
-    fields: ["password"],
-    secret: "some secret key"
 });
 
 module.exports = mongoose.model('user', userSchema);
