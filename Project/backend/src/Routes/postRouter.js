@@ -32,11 +32,11 @@ router.post('/login', (req, res) => {
     User.findOne({ userName: loginUser.userName })
     .then(user => {
         if (!user)
-            return res.status(401).send({ message: 'Authentication failed'});
+            return res.status(401).send({ message: 'Authentication failed' });
         else {
             bcrypt.compare(loginUser.password, user.password, (err, result) => {
                 if (err || !result)
-                    return res.status(401).send({ message: 'Authentication failed'});
+                    return res.status(401).send({ message: 'Authentication failed' });
                 else {
                     const token = jwt.sign({
                             email: user.email,
