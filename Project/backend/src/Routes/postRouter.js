@@ -3,12 +3,14 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
+const Product = require('../models/product');
 const config = require('../../config/config');
+const user = require('../models/user');
 
 const router = express.Router();
 
-// Register user.
-router.post('/register', (req, res) => {
+// Register.
+router.post('/register', (req, res, next) => {
     let newUser = req.body.user;
     bcrypt.hash(newUser.password, 10, (err, hash) => {
         if (err)
@@ -26,8 +28,8 @@ router.post('/register', (req, res) => {
     });
 });
 
-// User login.
-router.post('/login', (req, res) => {
+// Login.
+router.post('/login', (req, res, next) => {
     let loginUser = req.body.user;
     User.findOne({ userName: loginUser.userName })
     .then(user => {
@@ -55,6 +57,18 @@ router.post('/login', (req, res) => {
         }
     })
     .catch(err => res.status(500).send({ error: err.message }));
+});
+
+// Add product.
+router.post('/add-product', (req, res, next) => {
+    let newProduct = req.body.product;
+    const product = new Product(newProduct);
+    product.save()
+    .then(result => res.status(201).send({ 
+        id: product._id,
+        addition: result
+    }))
+    .catch(err => res.status(417).send({ error: err.message }));
 });
 
 module.exports = router;
