@@ -11,6 +11,11 @@ const productSchema = mongoose.Schema({
     },
     desc: {
         type: String,
+    },
+    quantity: {
+        type: Number,
+        required: true,
+        min: 1,
     }
 });
 

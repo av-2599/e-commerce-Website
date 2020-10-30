@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 
 const postRouter = require('./Routes/postRouter');
 const getRouter = require('./Routes/getRouter');
+const deleteRouter = require('./Routes/deleteRouter');
 const config = require('../config/config');
 
 mongoose.connect(config.mongoURL, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -12,6 +13,7 @@ mongoose.connect(config.mongoURL, { useNewUrlParser: true, useUnifiedTopology: t
     app.use(bodyParser.json());
     app.use('/', postRouter);
     app.use('/', getRouter);
+    app.use('/', deleteRouter);
     app.listen(3000, () => {
         console.log("App listening on port 3000!");
     });
