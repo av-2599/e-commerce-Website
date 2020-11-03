@@ -1,10 +1,10 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
 const Product = require('../models/product');
-const config = require('../../config/config');
+const Cart = require('../models/cart');
+const jwt = require('../config/jwt');
 
 const router = express.Router();
 
@@ -18,11 +18,12 @@ router.post('/register', (req, res, next) => {
             newUser.password = hash;
             const user = new User(newUser);
             user.save()
-            .then(() => res.status(201).send({ id: user._id }))
-            .catch(err => {
-                return (err.code === 11000) ? res.status(409).send({ message: 'The username already exists' }) 
-                    : res.status(417).send({ error: err.message });
-            });
+            .then(() => res.status(201).send({ 
+                id: user._id 
+            }))
+            .catch(err => res.status(417).send({ 
+                error: err.message 
+            }));
         }
     });
 });
@@ -30,23 +31,22 @@ router.post('/register', (req, res, next) => {
 // Login.
 router.post('/login', (req, res, next) => {
     let loginUser = req.body.user;
-    User.findOne({ userName: loginUser.userName })
+    User.findOne({ email: loginUser.email })
     .then(user => {
         if (!user)
-            return res.status(401).send({ message: 'Authentication failed' });
+            return res.status(401).send({ 
+                message: 'Authentication failed' 
+            });
         else {
             bcrypt.compare(loginUser.password, user.password, (err, result) => {
                 if (err || !result)
-                    return res.status(401).send({ message: 'Authentication failed' });
+                    return res.status(401).send({ 
+                        message: 'Authentication failed' 
+                    });
                 else {
-                    const token = jwt.sign({
-                            email: user.email,
-                            userName: user.userName
-                        }, 
-                        config.JWT_KEY, { 
-                            expiresIn: '1h' 
-                        }
-                    );
+                    const token = jwt.createToken({ 
+                        userId: user._id
+                    });
                     return res.status(200).send({ 
                         message: 'Authentication successful',
                         token: token
@@ -55,18 +55,49 @@ router.post('/login', (req, res, next) => {
             });
         }
     })
-    .catch(err => res.status(500).send({ error: err.message }));
+    .catch(err => res.status(500).send({ 
+        error: err.message 
+    }));
 });
 
 // Add product.
-router.post('/addProduct', (req, res, next) => {
-    let newProduct = req.body.product;
-    const product = new Product(newProduct);
+router.post('/addProduct', jwt.validateToken, (req, res, next) => {
+    const userId = req.session.userId;
+    const {name, price, desc, quantity } = req.body.product;
+    const product = new Product({
+        user: userId,
+        name,
+        price,
+        desc,
+        quantity
+    });
     product.save()
     .then(() => res.status(201).send({ 
         id: product._id
     }))
-    .catch(err => res.status(417).send({ error: err.message }));
+    .catch(err => res.status(417).send({ 
+        error: err.message 
+    }));
+});
+
+// Add to cart.
+router.post('/addCart', jwt.validateToken, (req, res, next) => {
+    // TODO Check quantity with product quantity
+    // TODO Check if product to be added exists
+    const userId = req.session.userId;
+    const { product, quantity } = req.body.cart;
+    const cart = new Cart({
+        user: userId,
+        product,
+        quantity
+    });
+    cart.save()
+    .then(() => res.status(201).send({
+        id: cart._id
+    }))
+    .catch(err => res.status(400).send({ 
+        error: err.message 
+    }));
 });
 
 module.exports = router;
