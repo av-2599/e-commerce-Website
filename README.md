@@ -1,2 +1,2 @@
 # WebsiteWPL
-WPL FInal Project
+WPL Final Project
