@@ -1,0 +1,15 @@
+.login {
+    height: 100vh;
+    display: flex;
+}
+
+.cardContainer {
+    width: 50%;
+}
+
+.outerCard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
