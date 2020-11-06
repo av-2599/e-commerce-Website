@@ -1,5 +1,7 @@
-import { Login } from './containers/login/login';
 import { NavBar } from './components/navbar/navbar';
+import { Login } from './containers/login/login';
+import { Register } from './containers/register/register';
+
 import './App.css';
 
 function App() {
@@ -8,7 +10,8 @@ function App() {
       <div id="navbarDiv">
         <NavBar />
       </div>
-      <Login />
+      <Register />
+      {/* <Login /> */}
     </div>
   );
 }

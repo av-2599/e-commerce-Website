@@ -5,7 +5,6 @@ import { BASE_URL, requestConfig } from '../../config/config';
 import { EMAIL_REGEX, PWD_REGEX } from '../../config/regex';
 import classes from './login.module.css';
 
-
 export const Login = () => {
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
@@ -14,7 +13,6 @@ export const Login = () => {
     
     const submit = async (e) => {
         e.preventDefault();
-        console.log('EMAIL: ' + email);
         if (!validEmail || !validPassword)
             console.log("Can't submit");
         else
@@ -66,18 +64,18 @@ export const Login = () => {
                             </FormGroup>
                             <FormGroup className={ classes.formFields }>
                                 <Label for="examplePassword"><strong>Password:</strong></Label>
-                                    <Input
-                                        className={ classes.inputField }
-                                        type="password" 
-                                        name="password" 
-                                        placeholder="password"
-                                        value={ password }
-                                        onChange={ e => onPasswordChange(e.target.value) } 
-                                        valid={ !password ? null : validPassword }
-                                        invalid={ !password ? null : !validPassword }
-                                    />
+                                <Input
+                                    className={ classes.inputField }
+                                    type="password" 
+                                    name="password" 
+                                    placeholder="password"
+                                    value={ password }
+                                    onChange={ e => onPasswordChange(e.target.value) } 
+                                    valid={ !password ? null : validPassword }
+                                    invalid={ !password ? null : !validPassword }
+                                />
                             </FormGroup>
-                            <Button outline id={ classes.button }><strong>Submit</strong></Button>
+                            <Button outline id={ classes.button }><strong>Login</strong></Button>
                             <br />
                             <div id={ classes.registerLink }>
                                 <a href="#">New User? Register Here</a>
