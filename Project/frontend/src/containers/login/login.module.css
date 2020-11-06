@@ -22,11 +22,18 @@
 }
 
 #button {
-    border-radius: 0px;
+    color: black;
+    border: 1px solid black;
+    border-radius: 2px;
+}
+
+#button:hover {
+    color: white;
+    border-radius: 2px;
     background-color: black;
 }
 
 .formFields {
     text-align: left;
-    
+
 }

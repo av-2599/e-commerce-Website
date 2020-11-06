@@ -54,7 +54,7 @@ export const Login = () => {
                         <Form onSubmit={ e => submit(e) }>
                             <FormGroup className={ classes.formFields }>
                                 <Label for="exampleEmail"><strong>Email:</strong></Label>
-                                <Input 
+                                <Input
                                     type="email" 
                                     name="email" 
                                     placeholder="example@example.com" 
@@ -66,17 +66,17 @@ export const Login = () => {
                             </FormGroup>
                             <FormGroup className={ classes.formFields }>
                                 <Label for="examplePassword"><strong>Password:</strong></Label>
-                                <Input 
-                                    type="password" 
-                                    name="password" 
-                                    placeholder="password"
-                                    value={ password }
-                                    onChange={ e => onPasswordChange(e.target.value) } 
-                                    valid={ validPassword }
-                                    invalid={ !validPassword }
-                                />
+                                    <Input
+                                        type="password" 
+                                        name="password" 
+                                        placeholder="password"
+                                        value={ password }
+                                        onChange={ e => onPasswordChange(e.target.value) } 
+                                        valid={ validPassword }
+                                        invalid={ !validPassword }
+                                    />
                             </FormGroup>
-                            <Button id={ classes.button }>Submit</Button>
+                            <Button outline id={ classes.button }><string>Submit</string></Button>
                         </Form>
                     </div>
                 </div>
