@@ -11,13 +11,14 @@ import {
     DropdownItem,
   } from 'reactstrap';
   
+import classes from './navbar.module.css';
 
 export const NavBar = () => {
 
     return(
         <div>
             <Navbar color="dark" dark expand="md" fixed="top">
-                <NavbarBrand href="/">BuyFurniture</NavbarBrand>
+                <NavbarBrand href="/"><strong>BuyFurniture</strong></NavbarBrand>
                 <Nav className="mr-auto" navbar>
                  {/* TODO Search Bar. */}
                 </Nav>
