@@ -76,7 +76,7 @@ export const Login = () => {
                                         invalid={ !validPassword }
                                     />
                             </FormGroup>
-                            <Button outline id={ classes.button }><string>Submit</string></Button>
+                            <Button outline id={ classes.button }><strong>Submit</strong></Button>
                         </Form>
                     </div>
                 </div>
