@@ -1,21 +1,20 @@
 import React, { useState } from 'react';
-
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
-import classes from './login.module.css';
 import { BASE_URL, requestConfig } from '../../config/config';
+import { EMAIL_REGEX, PWD_REGEX } from '../../config/regex';
+import classes from './login.module.css';
+
 
 export const Login = () => {
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
-    const [ validEmail, setValidEmail  ] = useState();
-    const [ validPassword, setValidPassword ] = useState();
+    const [ validEmail, setValidEmail  ] = useState(true);
+    const [ validPassword, setValidPassword ] = useState(true);
     
-    const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    const PWD_REGEX = /^[A-Z][a-z0-9]{6,11}$/;
-
     const submit = async (e) => {
         e.preventDefault();
+        console.log('EMAIL: ' + email);
         if (!validEmail || !validPassword)
             console.log("Can't submit");
         else
@@ -55,28 +54,32 @@ export const Login = () => {
                             <FormGroup className={ classes.formFields }>
                                 <Label for="exampleEmail"><strong>Email:</strong></Label>
                                 <Input
+                                    className={ classes.inputField }
                                     type="email" 
                                     name="email" 
                                     placeholder="example@example.com" 
                                     value={ email }
                                     onChange={ e => onEmailChange(e.target.value) }
-                                    valid={ validEmail }
-                                    invalid={ !validEmail }
+                                    valid={ !email ? null : validEmail }
+                                    invalid={ !email ? null : !validEmail }
                                 />
                             </FormGroup>
                             <FormGroup className={ classes.formFields }>
                                 <Label for="examplePassword"><strong>Password:</strong></Label>
                                     <Input
+                                        className={ classes.inputField }
                                         type="password" 
                                         name="password" 
                                         placeholder="password"
                                         value={ password }
                                         onChange={ e => onPasswordChange(e.target.value) } 
-                                        valid={ validPassword }
-                                        invalid={ !validPassword }
+                                        valid={ !password ? null : validPassword }
+                                        invalid={ !password ? null : !validPassword }
                                     />
                             </FormGroup>
                             <Button outline id={ classes.button }><strong>Submit</strong></Button>
+                            <br />
+                            <a href="#">New User? Register Here</a>
                         </Form>
                     </div>
                 </div>
