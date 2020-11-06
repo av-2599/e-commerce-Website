@@ -1,5 +1,5 @@
-import { Login } from './containers/login';
-import { NavBar } from './components/navbar';
+import { Login } from './containers/login/login';
+import { NavBar } from './components/navbar/navbar';
 import './App.css';
 
 function App() {

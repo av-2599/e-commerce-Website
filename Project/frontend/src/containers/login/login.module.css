@@ -1,0 +1,32 @@
+.login {
+    height: 100vh;
+    display: flex;
+}
+
+.cardContainer {
+    width: 50%;
+}
+
+.outerCard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+#cardId {
+    padding: 15px;
+    border: 2px solid black;
+    border-radius: 0px;
+    box-shadow: 7px 10px #6a57dc;
+}
+
+#button {
+    border-radius: 0px;
+    background-color: black;
+}
+
+.formFields {
+    text-align: left;
+    
+}

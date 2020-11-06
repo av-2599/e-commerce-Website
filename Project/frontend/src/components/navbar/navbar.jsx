@@ -16,7 +16,7 @@ export const NavBar = () => {
 
     return(
         <div>
-            <Navbar color="dark" dark expand="md">
+            <Navbar color="dark" dark expand="md" fixed="top">
                 <NavbarBrand href="/">BuyFurniture</NavbarBrand>
                 <Nav className="mr-auto" navbar>
                  {/* TODO Search Bar. */}
