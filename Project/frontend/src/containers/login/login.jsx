@@ -79,7 +79,9 @@ export const Login = () => {
                             </FormGroup>
                             <Button outline id={ classes.button }><strong>Submit</strong></Button>
                             <br />
-                            <a href="#">New User? Register Here</a>
+                            <div id={ classes.registerLink }>
+                                <a href="#">New User? Register Here</a>
+                            </div>
                         </Form>
                     </div>
                 </div>

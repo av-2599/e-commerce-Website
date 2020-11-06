@@ -41,3 +41,8 @@
     border: 1px solid black;
     box-shadow: 2px 2px;
 }
+
+#registerLink {
+    padding: 15px;
+    font-size: small;
+}
