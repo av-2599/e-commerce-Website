@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 import { BASE_URL, requestConfig } from '../../config/config';
-import { EMAIL_REGEX, PWD_REGEX } from '../../config/regex';
+import { EMAIL_REGEX, PWD_REGEX, PHONE_REGEX } from '../../config/regex';
 import classes from './register.module.css';
 
 export const Register = () => {
@@ -11,15 +11,28 @@ export const Register = () => {
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ phone, setPhone ] = useState('');
+    const [ validFirstName, setValidFirstName ] = useState(true);
+    const [ validLastName, setValidLastName ] = useState(true);
     const [ validEmail, setValidEmail  ] = useState(true);
     const [ validPassword, setValidPassword ] = useState(true);
+    const [ validPhone, setValidPhone ] = useState(true);
 
     const submit = async (e) => {
         e.preventDefault();
-        if (!validEmail || !validPassword)
+        if (!validFirstName || !validLastName || !validEmail || !validPassword || !validPhone)
             console.log("Can't submit");
         else
             await auth();
+    }
+
+    const onFirstNameChange = (value) => {
+        firstName.length < 30 ? setValidFirstName(true) : setValidFirstName(false);
+        setFirstName(value);
+    }
+
+    const onLastNameChange = (value) => {
+        lastName.length < 30 ? setValidLastName(true) : setValidLastName(false);
+        setLastName(value);
     }
 
     const onEmailChange = (value) => {
@@ -30,6 +43,11 @@ export const Register = () => {
     const onPasswordChange = (value) => {
         PWD_REGEX.test(value) ? setValidPassword(true) : setValidPassword(false);
         setPassword(value);
+    }
+
+    const onPhoneChange = (value) => {
+        PHONE_REGEX.test(value) ? setValidPhone(true) : setValidPhone(false);
+        setPhone(value);
     }
 
     const auth = async () => {
@@ -45,9 +63,6 @@ export const Register = () => {
         const response = await fetch(BASE_URL + '/register', requestConfig('POST', body));
         const data = await response.json();
         // TODO: redirect user to homepage.
-        // TODO: validate first name.
-        // TODO: validate last name.
-        // TODO: validate phone number.
     }
 
     return(
@@ -65,8 +80,10 @@ export const Register = () => {
                                         type="text" 
                                         name="text" 
                                         placeholder="John"
-                                        value= { firstName }
-                                        onChange={ e => setFirstName(e.target.value) }
+                                        value={ firstName }
+                                        onChange={ e => onFirstNameChange(e.target.value) }
+                                        valid={ !firstName ? null : validFirstName }
+                                        invalid={ !firstName ? null : !validFirstName }
                                     />
                                 </FormGroup>
                                 <FormGroup className={ classes.formFields }>
@@ -76,8 +93,10 @@ export const Register = () => {
                                         type="text" 
                                         name="text" 
                                         placeholder="Doe"
-                                        value= { lastName }
-                                        onChange={ e => setLastName(e.target.value) }
+                                        value={ lastName }
+                                        onChange={ e => onLastNameChange(e.target.value) }
+                                        valid={ !lastName ? null : validLastName }
+                                        invalid={ !lastName ? null : !validLastName }
                                     />
                                 </FormGroup>
                                 <FormGroup className={ classes.formFields }>
@@ -110,11 +129,13 @@ export const Register = () => {
                                     <Label for="exampleEmail"><strong>Phone:</strong></Label>
                                     <Input
                                         className={ classes.inputField }
-                                        type="email" 
-                                        name="email" 
+                                        type="text" 
+                                        name="text" 
                                         placeholder="xxx-xxx-xxxx (10 digits)"
-                                        value= { phone }
-                                        onChange={ e => setPhone(e.target.value) }
+                                        value={ phone }
+                                        onChange={ e => onPhoneChange(e.target.value) }
+                                        valid={ !phone ? null : validPhone }
+                                        invalid={ !phone ? null : !validPhone }
                                     />
                                 </FormGroup>
                                 <Button outline id={ classes.button }><strong>Register</strong></Button>
