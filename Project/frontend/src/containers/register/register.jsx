@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
-import { BASE_URL, requestConfig } from '../../config/config';
 import { EMAIL_REGEX, PWD_REGEX, PHONE_REGEX } from '../../config/regex';
+import endpoint from '../../config/endpoint';
 import classes from './register.module.css';
 
 export const Register = () => {
@@ -21,8 +22,19 @@ export const Register = () => {
         e.preventDefault();
         if (!validFirstName || !validLastName || !validEmail || !validPassword || !validPhone)
             console.log("Can't submit");
-        else
-            await auth();
+        else {
+            const body = {
+                user: {
+                    firstName,
+                    lastName,
+                    email,
+                    password,
+                    phone
+                }
+            };
+            const data = await endpoint.register(body);
+            console.log(data);
+        }
     }
 
     const onFirstNameChange = (value) => {
@@ -48,21 +60,6 @@ export const Register = () => {
     const onPhoneChange = (value) => {
         PHONE_REGEX.test(value) ? setValidPhone(true) : setValidPhone(false);
         setPhone(value);
-    }
-
-    const auth = async () => {
-        const body = {
-            user: {
-                firstName,
-                lastName,
-                email,
-                password,
-                phone
-            }
-        };
-        const response = await fetch(BASE_URL + '/register', requestConfig('POST', body));
-        const data = await response.json();
-        // TODO: redirect user to homepage.
     }
 
     return(
@@ -139,6 +136,10 @@ export const Register = () => {
                                     />
                                 </FormGroup>
                                 <Button outline id={ classes.button }><strong>Register</strong></Button>
+                                <br />
+                                <div id={ classes.loginLink }>
+                                    <Link to="/login">Existing User? Login Here</Link>
+                                </div>
                             </Form>
                         </div>
                     </div>

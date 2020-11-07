@@ -41,3 +41,8 @@
     border: 1px solid black;
     box-shadow: 3px 3px;
 }
+
+#loginLink {
+    padding: 15px;
+    font-size: small;
+}

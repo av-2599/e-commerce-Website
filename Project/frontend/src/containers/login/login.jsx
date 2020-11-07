@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
-import { BASE_URL, requestConfig } from '../../config/config';
 import { EMAIL_REGEX, PWD_REGEX } from '../../config/regex';
+import endpoint from '../../config/endpoint';
 import classes from './login.module.css';
 
 export const Login = () => {
@@ -15,8 +16,16 @@ export const Login = () => {
         e.preventDefault();
         if (!validEmail || !validPassword)
             console.log("Can't submit");
-        else
-            await auth();
+        else {
+            const body = {
+                user: { 
+                    email, 
+                    password 
+                }
+            }
+            const data = await endpoint.login(body);
+            console.log(data);
+        }
     }
 
     const onEmailChange = (value) => {
@@ -27,19 +36,6 @@ export const Login = () => {
     const onPasswordChange = (value) => {
         PWD_REGEX.test(value) ? setValidPassword(true) : setValidPassword(false);
         setPassword(value);
-    }
-
-    const auth = async () => {
-        const body = {
-            user: {
-                email,
-                password
-            }
-        };
-        const response = await fetch(BASE_URL + '/login', requestConfig('POST', body));
-        const data = await response.json();
-        // TODO: add request token to request header.
-        // TODO: redirect user to homepage.
     }
 
     return(
@@ -78,7 +74,7 @@ export const Login = () => {
                             <Button outline id={ classes.button }><strong>Login</strong></Button>
                             <br />
                             <div id={ classes.registerLink }>
-                                <a href="#">New User? Register Here</a>
+                                <Link to="/register">New User? Register Here</Link>
                             </div>
                         </Form>
                     </div>
