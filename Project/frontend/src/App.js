@@ -7,6 +7,7 @@ import {
 import { NavBar } from './components/navbar/navbar';
 import { Login } from './containers/login/login';
 import { Register } from './containers/register/register';
+import { Home } from './containers/home/home';
 import './App.css';
 
 function App() {
@@ -19,7 +20,7 @@ function App() {
         <Switch>
           <Route path="/login" component={ Login } />
           <Route path="/register" component={ Register } />
-          <Route path="/" /> 
+          <Route path="/" component={ Home } /> 
         </Switch>
       </Router>
     </div>

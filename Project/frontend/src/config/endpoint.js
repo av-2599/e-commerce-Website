@@ -26,6 +26,11 @@ class Endpoint {
         const registerResponse = await response.json();
         return registerResponse;
     }
+
+    async getProducts() {
+        const response = await fetch(`${ this.BASE_URL }/getProducts`, this.buildReqHeader('GET'));
+        return await response.json();
+    }
 }
 
 export default new Endpoint();
