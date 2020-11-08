@@ -37,6 +37,9 @@ class Endpoint {
 
     async addToCart(data) {
         console.log(Endpoint.API_TOKEN);
+        if (!Endpoint.API_TOKEN) {
+            Endpoint.API_TOKEN = sessionStorage.getItem('token');
+        }
         const response = await fetch(`${ this.BASE_URL }/addCart`, this.buildReqHeader('POST', data))
         return await response.json();
     }
