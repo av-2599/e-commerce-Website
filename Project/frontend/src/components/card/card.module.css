@@ -1,0 +1,26 @@
+#cardId {
+    width: 25%;
+    border: 2px solid black;
+    box-shadow: 7px 10px #99f3bd;
+    padding: 10px;
+    display: inline-flex;
+    justify-content: space-between;
+    margin: 15px;
+    align-items: center;
+    flex-direction: column;
+}
+
+Button {
+    width: 100%;
+    margin: 5px;
+}
+
+#quantityId {
+    width: 30%;
+    display: flex;
+    justify-content: space-between;
+}
+ 
+#inputId {
+    margin-left: 5px;
+}
