@@ -24,3 +24,7 @@ Button {
 #inputId {
     margin-left: 5px;
 }
+
+#viewId {
+    width: 100%;
+}

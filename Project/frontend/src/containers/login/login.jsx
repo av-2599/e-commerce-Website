@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 import { EMAIL_REGEX, PWD_REGEX } from '../../config/regex';
-import endpoint from '../../config/endpoint';
+import { login } from '../../config/endpoint';
 import classes from './login.module.css';
 
 export const Login = () => {
@@ -11,6 +11,7 @@ export const Login = () => {
     const [ password, setPassword ] = useState('');
     const [ validEmail, setValidEmail  ] = useState(true);
     const [ validPassword, setValidPassword ] = useState(true);
+    const history = useHistory();
     
     const submit = async (e) => {
         e.preventDefault();
@@ -23,7 +24,9 @@ export const Login = () => {
                     password 
                 }
             }
-            const data = await endpoint.login(body);
+            const { data, status } = await login(body);
+            (status === 200) ? history.push('/') : console.log(data);
+
             console.log(data);
         }
     }

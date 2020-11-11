@@ -24,7 +24,7 @@ export const NavBar = () => {
                 </Nav>
                 <Nav navbar>
                     <NavItem>
-                        <NavLink href="#">Cart</NavLink>
+                        <NavLink href="/cart">Cart</NavLink>
                     </NavItem>
                     <UncontrolledDropdown nav inNavbar>
                         <DropdownToggle nav caret>

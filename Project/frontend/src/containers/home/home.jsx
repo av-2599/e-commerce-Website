@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import endpoint from '../../config/endpoint';
+import { getProducts, addToCart } from '../../config/endpoint';
 import { ProductCard } from '../../components/card/card';
 import classes from './home.module.css';
 
@@ -10,37 +10,33 @@ export const Home = () => {
     
     useEffect(() => {
         (async () => {
-            const data = await endpoint.getProducts();
+            const data = await getProducts();
             setProducts(data);
         })();
     }, []);
 
     const createCard = () => {
         let cardArray = [];
-        console.log(products);
         products.forEach(product => {
             cardArray.push(<ProductCard 
                 key={ product._id }
                 product={ product }
                 quantity={ userQuantity }
                 updateQuantity={ setUserQuantity }
-                addCart={ addToCart }
+                addCart={ addCart }
             />);
         });
-
         return cardArray;
     }
 
-    const addToCart = async (product) => {
-        console.log(product);
-        console.log(userQuantity);
+    const addCart = async (product) => {
         const body = {
             cart: {
                 product: product._id,
                 quantity: userQuantity
             }
         }
-        const data = await endpoint.addToCart(body);
+        const data = await addToCart(body);
         console.log(data);
     }
 

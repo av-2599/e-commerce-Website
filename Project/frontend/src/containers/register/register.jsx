@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 import { EMAIL_REGEX, PWD_REGEX, PHONE_REGEX } from '../../config/regex';
-import endpoint from '../../config/endpoint';
+import { register } from '../../config/endpoint';
 import classes from './register.module.css';
 
 export const Register = () => {
@@ -32,7 +32,7 @@ export const Register = () => {
                     phone
                 }
             };
-            const data = await endpoint.register(body);
+            const data = await register(body);
             console.log(data);
         }
     }
