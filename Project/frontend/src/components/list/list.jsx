@@ -1,16 +1,25 @@
 import React from 'react';
 
 import classes from './list.module.css';
+import { QuantityInput } from '../../components/quantityInput/quantityInput';
 
-export const ListProduct = ({ product }) => {
-    console.log(product);
-    return (
+export const List = ({ product, quantity, updateQuantity }) => {
+
+    const updateUserQuantity = newQuantity => {
+        updateQuantity(product, newQuantity);
+    }
+
+    return(
         <div id={ classes.listContainer }>
-            <div>
-                <h6>{ product.name }</h6>
-                <h6>{ product.quantity }</h6>
-                <h6>{ product.userQuantity }</h6>
+            <div id={ classes.box }>
+                <h1>{ product.name }</h1>
+                <h4>${ product.price }</h4>
+                <QuantityInput
+                    productQuantity={ product.quantity }
+                    userQuantity={ quantity }
+                    updateUserQuantity={ updateUserQuantity }
+                />
             </div>
         </div>
-    )
-}
+    );
+};

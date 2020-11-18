@@ -17,7 +17,7 @@ export const Product = () => {
             const { product } = await getSpecificProduct(productId);
             setProduct(product);
         })();
-    }, []);
+    }, [productId]);
 
     const addCart = async () => {
         const body = {

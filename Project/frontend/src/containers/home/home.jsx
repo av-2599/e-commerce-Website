@@ -17,7 +17,7 @@ export const Home = () => {
 
     const createCard = () => {
         let cardArray = [];
-        products.forEach(product => {
+        for (let product of products) {
             cardArray.push(<ProductCard 
                 key={ product._id }
                 product={ product }
@@ -25,7 +25,7 @@ export const Home = () => {
                 updateQuantity={ setUserQuantity }
                 addCart={ addCart }
             />);
-        });
+        }
         return cardArray;
     }
 
@@ -37,7 +37,6 @@ export const Home = () => {
             }
         }
         const data = await addToCart(body);
-        console.log(data);
     }
 
     return(

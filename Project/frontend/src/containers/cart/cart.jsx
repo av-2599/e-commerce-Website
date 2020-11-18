@@ -1,45 +1,68 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-import { getUserCart, getSpecificProduct } from '../../config/endpoint';
-import { ListProduct } from '../../components/list/list';
+import { getUserCart, getSpecificProduct, updateUserCart } from '../../config/endpoint';
+import { List } from '../../components/list/list';
+import classes from './cart.module.css';
 
 export const Cart = () => {
 
     const [cart, setCart] = useState([]);
+    const [reload, setReload] = useState(false);
 
     useEffect(() => {
         (async () => {
-            const productArray = [];
-            const { shoppingCart:{ products }} = await getUserCart();
-            console.log(products);
-            products.forEach(async product => {
-                const productData = await getSpecificProduct(product.product);
-                productArray.push({ ...productData.product, userQuantity: product.quantity });
-            })
+            const { shoppingCart:{ products } } = await getUserCart();
+            let productArray = await fetchProduct(products);
+            format(products, productArray);
             setCart(productArray);
+            setReload(false);
         })();
-    }, []);
-    
+    }, [reload]);
+
+    const fetchProduct = async response => {
+        let productArray = [];
+        for (let element of response)
+            productArray.push(getSpecificProduct(element.product));
+        productArray = await Promise.all(productArray);
+        return productArray;
+    }
+
+    const format = (response, data) => {
+        for (let idx in data) {
+            let { product } = data[idx];
+            let { quantity, cartId } = response[idx];
+            data[idx] = {...product, userQuantity: quantity, cartId };
+        }
+    }
+
+    const updateUserQuantity = async (product, newUserQuantity) => {
+        await updateCart(product, newUserQuantity);
+        setReload(true);
+    }
+
+    const updateCart = async (product, newQuantity) => {
+        const data = {
+            quantity: newQuantity
+        }
+        const response = await updateUserCart(product.cartId, data);
+    }
+
     const createList = () => {
-        console.log("Cart:", cart);
-        const displayList = [];
-        // cart.forEach(product => {
-        //     // displayList.push((<ListProduct product={ product } />));
-        //     console.log("Product:", product);
-        // });
-        console.log('TYPE: ' + typeof(cart));
-        cart.forEach(product => {
-            console.log("PRODUCT:", product);
-        })
-
-        console.log(displayList);
-
+        let displayList = [];
+        for (let element of cart)
+            displayList.push(<List 
+                product={ element }
+                quantity={ element.userQuantity }
+                updateQuantity={ updateUserQuantity }
+            />);
         return displayList;
     }
 
     return(
-        <div>
-            { createList() }
+        <div id={ classes.cartContainer }>
+            <div id={ classes.cartList }>
+                { createList() }
+            </div>
         </div>
     );
 }

@@ -6,6 +6,7 @@ const buildReqHeader = (type, data) => {
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '',
             'Authorization': `Bearer ${ sessionStorage.getItem('token') }`
         },
         body: JSON.stringify(data)
@@ -46,5 +47,10 @@ export const getSpecificProduct = async productId => {
 
 export const getUserCart = async () => {
     const response = await fetch(`${ BASE_URL }/getCart`, buildReqHeader('GET'));
+    return await response.json();
+}
+
+export const updateUserCart = async (cartId, data) => {
+    const response = await fetch(`${ BASE_URL }/updateCart/${ cartId }`, buildReqHeader('PATCH', data));
     return await response.json();
 }

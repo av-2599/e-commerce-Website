@@ -41,6 +41,7 @@ router.get('/getCart', jwt.validateToken, (req, res, next) => {
         }
         for (let cart of carts) {
             shoppingCart.products.push({ 
+                cartId: cart._id,
                 product: cart.product,
                 quantity: cart.quantity
             });
