@@ -10,7 +10,7 @@ import {
     DropdownMenu,
     DropdownItem,
   } from 'reactstrap';
-  
+
 import classes from './navbar.module.css';
 
 export const NavBar = () => {

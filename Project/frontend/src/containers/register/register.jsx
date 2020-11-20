@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 import { EMAIL_REGEX, PWD_REGEX, PHONE_REGEX } from '../../config/regex';
-import { register } from '../../config/endpoint';
+import { register, login } from '../../config/endpoint';
 import classes from './register.module.css';
 
 export const Register = () => {
+    const history = useHistory();
     const [ firstName, setFirstName ] = useState('');
     const [ lastName, setLastName ] = useState('');
     const [ email, setEmail ] = useState('');
@@ -32,8 +33,17 @@ export const Register = () => {
                     phone
                 }
             };
-            const data = await register(body);
-            console.log(data);
+            const { status: registerStatus, data: registerData } = await register(body);
+            if (registerStatus === 201) {
+                const loginBody = {
+                    user: {
+                        email,
+                        password
+                    }
+                }
+                const { status: loginStatus, data: loginData } = await login(loginBody);
+                (loginStatus === 200) ? history.push('/') : console.log(loginData);
+            }
         }
     }
 

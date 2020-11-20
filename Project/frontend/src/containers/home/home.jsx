@@ -10,7 +10,7 @@ export const Home = () => {
     
     useEffect(() => {
         (async () => {
-            const data = await getProducts();
+            const { status, data } = await getProducts();
             setProducts(data);
         })();
     }, []);
@@ -36,7 +36,7 @@ export const Home = () => {
                 quantity: userQuantity
             }
         }
-        const data = await addToCart(body);
+        const { status, data } = await addToCart(body);
     }
 
     return(

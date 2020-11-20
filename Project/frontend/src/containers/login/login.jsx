@@ -24,7 +24,8 @@ export const Login = () => {
                     password 
                 }
             }
-            const { data, status } = await login(body);
+            const { status, data } = await login(body);
+
             (status === 200) ? history.push('/') : console.log(data);
 
             console.log(data);

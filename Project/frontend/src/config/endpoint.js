@@ -13,44 +13,33 @@ const buildReqHeader = (type, data) => {
     }
 }
 
+const callAPI = async (requestType, URI, data) => {
+    const request = (requestType === 'GET') ? buildReqHeader(requestType) :
+        buildReqHeader(requestType, data);
+    const rawResponse = await fetch(URI, request);
+    const response = await rawResponse.json();
+    return { 
+        status: rawResponse.status, 
+        data: response 
+    };
+}
+
 export const login = async data => {
-    const response = await fetch(`${ BASE_URL }/login`, buildReqHeader('POST', data));
-    const loginResponse = await response.json();
-    sessionStorage.setItem('token', loginResponse.token);
-    return { status: response.status, data: loginResponse};
+    const response = await callAPI('POST', `${ BASE_URL }/login`, data);
+    sessionStorage.setItem('token', response.data.token);
+    return response;
 }
 
-export const register = async data => {
-    const response = await fetch(`${ BASE_URL }/register`, buildReqHeader('POST', data));
-    const registerResponse = await response.json();
-    return registerResponse;
-}
+export const register = async data => await callAPI('POST', `${ BASE_URL }/register`, data);
 
-export const getProducts = async () => {
-    const response = await fetch(`${ BASE_URL }/getProducts`, buildReqHeader('GET'));
-    return await response.json();
-}
+export const getProducts = async () => await callAPI('GET', `${ BASE_URL }/getProducts`);
 
-export const addToCart = async data => {
-    const response = await fetch(`${ BASE_URL }/addCart`, buildReqHeader('POST', data));
-    return await response.json();
-}
+export const addToCart = async data => await callAPI('POST', `${ BASE_URL }/addCart`, data);
 
-export const signout = () => {
-    sessionStorage.removeItem('token');
-}
+export const signout = () => sessionStorage.removeItem('token');
 
-export const getSpecificProduct = async productId => {
-    const response = await fetch(`${ BASE_URL }/getProduct/${ productId }`, buildReqHeader('GET'));
-    return await response.json();
-}
+export const getSpecificProduct = async productId => await callAPI('GET', `${ BASE_URL }/getProduct/${ productId }`);
 
-export const getUserCart = async () => {
-    const response = await fetch(`${ BASE_URL }/getCart`, buildReqHeader('GET'));
-    return await response.json();
-}
+export const getUserCart = async () => await callAPI('GET', `${ BASE_URL }/getCart`);
 
-export const updateUserCart = async (cartId, data) => {
-    const response = await fetch(`${ BASE_URL }/updateCart/${ cartId }`, buildReqHeader('PATCH', data));
-    return await response.json();
-}
+export const updateUserCart = async (cartId, data) => await callAPI('PATCH', `${ BASE_URL }/updateCart/${ cartId }`, data);

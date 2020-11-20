@@ -14,7 +14,7 @@ export const Product = () => {
 
     useEffect(() => {
         (async () => {
-            const { product } = await getSpecificProduct(productId);
+            const { data: { product } } = await getSpecificProduct(productId);
             setProduct(product);
         })();
     }, [productId]);
@@ -26,7 +26,7 @@ export const Product = () => {
                 quantity: userQuantity
             }
         }
-        const data = await addToCart(body);
+        const { status, data } = await addToCart(body);
         console.log(data);
     }
 
