@@ -1,3 +1,6 @@
+import { GET, POST, PATCH } from './requestType';
+import { setToken, removeToken, getToken } from './token';
+
 const BASE_URL = "http://localhost:4000";
 
 const buildReqHeader = (type, data) => {
@@ -7,39 +10,46 @@ const buildReqHeader = (type, data) => {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Access-Control-Allow-Origin': '',
-            'Authorization': `Bearer ${ sessionStorage.getItem('token') }`
+            'Authorization': `Bearer ${ getToken() }`
         },
         body: JSON.stringify(data)
     }
 }
 
-const callAPI = async (requestType, URI, data) => {
-    const request = (requestType === 'GET') ? buildReqHeader(requestType) :
+const callAPI = async (requestType, endpoint, data) => {
+    const request = (requestType === GET) ? buildReqHeader(requestType) :
         buildReqHeader(requestType, data);
-    const rawResponse = await fetch(URI, request);
+    const rawResponse = await fetch(BASE_URL + endpoint, request);
     const response = await rawResponse.json();
-    return { 
-        status: rawResponse.status, 
-        data: response 
+    return {
+        status: rawResponse.status,
+        data: response
     };
 }
 
+/**
+ * POST REQUEST
+ */
+
 export const login = async data => {
-    const response = await callAPI('POST', `${ BASE_URL }/login`, data);
-    sessionStorage.setItem('token', response.data.token);
+    const response = await callAPI(POST, `/login`, data);
+    setToken(response.data.token);
     return response;
 }
+export const register = async data => await callAPI(POST, `/register`, data);
+export const addToCart = async data => await callAPI(POST, `/addCart`, data);
 
-export const register = async data => await callAPI('POST', `${ BASE_URL }/register`, data);
+/**
+ * GET REQUEST
+ */
 
-export const getProducts = async () => await callAPI('GET', `${ BASE_URL }/getProducts`);
+export const getProducts = async () => await callAPI(GET, `/getProducts`);
+export const getSpecificProduct = async productId => await callAPI(GET, `/getProduct/${ productId }`);
+export const getUserCart = async () => await callAPI(GET, `/getCart`);
+export const signout = () => removeToken();
 
-export const addToCart = async data => await callAPI('POST', `${ BASE_URL }/addCart`, data);
+/**
+ * PATCH REQUEST
+ */
 
-export const signout = () => sessionStorage.removeItem('token');
-
-export const getSpecificProduct = async productId => await callAPI('GET', `${ BASE_URL }/getProduct/${ productId }`);
-
-export const getUserCart = async () => await callAPI('GET', `${ BASE_URL }/getCart`);
-
-export const updateUserCart = async (cartId, data) => await callAPI('PATCH', `${ BASE_URL }/updateCart/${ cartId }`, data);
+export const updateUserCart = async (cartId, data) => await callAPI(PATCH, `/updateCart/${ cartId }`, data);
