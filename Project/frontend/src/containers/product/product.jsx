@@ -7,7 +7,7 @@ import { getSpecificProduct, addToCart } from '../../config/endpoint';
 import classes from './product.module.css';
 
 export const Product = () => {
-    
+
     const { productId } = useParams();
     const [product, setProduct] = useState({});
     const [userQuantity, setUserQuantity] = useState(1);

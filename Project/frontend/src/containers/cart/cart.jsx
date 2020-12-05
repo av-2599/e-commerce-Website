@@ -11,10 +11,10 @@ export const Cart = () => {
 
     useEffect(() => {
         (async () => {
-            const { status, data: { shoppingCart:{ products } }} = await getUserCart();
-            let productArray = await fetchProduct(products);
-            format(products, productArray);
-            setCart(productArray);
+            const { status, data: { shoppingCart:{ products: productResponse } }} = await getUserCart();
+            const products = await fetchProduct(productResponse);
+            format(productResponse, products);
+            setCart(products);
             setReload(false);
         })();
     }, [reload]);
@@ -50,7 +50,7 @@ export const Cart = () => {
     const createList = () => {
         let displayList = [];
         for (let element of cart)
-            displayList.push(<List 
+            displayList.push(<List
                 product={ element }
                 quantity={ element.userQuantity }
                 updateQuantity={ updateUserQuantity }

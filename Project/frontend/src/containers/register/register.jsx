@@ -84,8 +84,8 @@ export const Register = () => {
                                     <Label for="exampleEmail"><strong>First Name:</strong></Label>
                                     <Input
                                         className={ classes.inputField }
-                                        type="text" 
-                                        name="text" 
+                                        type="text"
+                                        name="text"
                                         placeholder="John"
                                         value={ firstName }
                                         onChange={ e => onFirstNameChange(e.target.value) }
@@ -97,8 +97,8 @@ export const Register = () => {
                                     <Label for="exampleEmail"><strong>Last Name:</strong></Label>
                                     <Input
                                         className={ classes.inputField }
-                                        type="text" 
-                                        name="text" 
+                                        type="text"
+                                        name="text"
                                         placeholder="Doe"
                                         value={ lastName }
                                         onChange={ e => onLastNameChange(e.target.value) }
@@ -110,8 +110,8 @@ export const Register = () => {
                                     <Label for="exampleEmail"><strong>Email:</strong></Label>
                                     <Input
                                         className={ classes.inputField }
-                                        type="email" 
-                                        name="email" 
+                                        type="email"
+                                        name="email"
                                         placeholder="example@example.com"
                                         value={ email }
                                         onChange={ e => onEmailChange(e.target.value) }
@@ -123,11 +123,11 @@ export const Register = () => {
                                     <Label for="examplePassword"><strong>Password:</strong></Label>
                                     <Input
                                         className={ classes.inputField }
-                                        type="password" 
-                                        name="password" 
+                                        type="password"
+                                        name="password"
                                         placeholder="password"
                                         value={ password }
-                                        onChange={ e => onPasswordChange(e.target.value) } 
+                                        onChange={ e => onPasswordChange(e.target.value) }
                                         valid={ !password ? null : validPassword }
                                         invalid={ !password ? null : !validPassword }
                                     />
@@ -136,8 +136,8 @@ export const Register = () => {
                                     <Label for="exampleEmail"><strong>Phone:</strong></Label>
                                     <Input
                                         className={ classes.inputField }
-                                        type="text" 
-                                        name="text" 
+                                        type="text"
+                                        name="text"
                                         placeholder="xxx-xxx-xxxx (10 digits)"
                                         value={ phone }
                                         onChange={ e => onPhoneChange(e.target.value) }
