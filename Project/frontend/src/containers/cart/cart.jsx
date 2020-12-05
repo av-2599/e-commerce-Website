@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { Button } from 'reactstrap';
 
-import { getUserCart, getSpecificProduct, updateUserCart } from '../../config/endpoint';
+import { getUserCart, getSpecificProduct, updateUserCart, checkout } from '../../config/endpoint';
 import { List } from '../../components/list/list';
 import classes from './cart.module.css';
 
 export const Cart = () => {
-
+    const history = useHistory();
     const [cart, setCart] = useState([]);
     const [reload, setReload] = useState(false);
 
@@ -47,6 +49,11 @@ export const Cart = () => {
         const { status, data } = await updateUserCart(product.cartId, reqData);
     }
 
+    const onCheckout = async () => {
+        const { status, data } = await checkout();
+        (status === 200) ? history.push('/') : console.log(data);
+    }
+
     const createList = () => {
         let displayList = [];
         for (let element of cart)
@@ -62,6 +69,11 @@ export const Cart = () => {
         <div id={ classes.cartContainer }>
             <div id={ classes.cartList }>
                 { createList() }
+            </div>
+            <div id={ classes.checkout }>
+                <div id={ classes.checkoutButton }>
+                    <Button outline color="warning" onClick={ e => onCheckout() }>Checkout</Button>
+                </div>
             </div>
         </div>
     );

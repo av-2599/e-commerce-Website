@@ -1,5 +1,6 @@
 #box {
     border: 2px solid black;
     box-shadow: 7px 10px indianred;
-    margin: 20px;
+    margin: 30px;
+    padding: 10px;
 }

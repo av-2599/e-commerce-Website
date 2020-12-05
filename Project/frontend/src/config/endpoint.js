@@ -46,6 +46,8 @@ export const addToCart = async data => await callAPI(POST, `/addCart`, data);
 export const getProducts = async () => await callAPI(GET, `/getProducts`);
 export const getSpecificProduct = async productId => await callAPI(GET, `/getProduct/${ productId }`);
 export const getUserCart = async () => await callAPI(GET, `/getCart`);
+export const checkout = async () => await callAPI(GET, '/checkout');
+export const getOrders = async () => await callAPI(GET, '/getOrders');
 export const signout = () => removeToken();
 
 /**

@@ -1,5 +1,7 @@
 #cartContainer {
     margin-top: 100px;
+    display: flex;
+    flex-direction: row;
 }
 
 #cartList {
@@ -9,4 +11,17 @@
     border: 1px solid black;
     padding: 10px;
     margin-left: 25px;
+}
+
+#checkout {
+    display: inline-table;
+    width: 50%;
+    margin: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+    padding-left: 100px;
+}
+
+#checkoutButton {
+    width: 50%;
 }
