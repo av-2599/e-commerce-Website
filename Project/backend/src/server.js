@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 const postRouter = require('./Routes/postRouter');
 const getRouter = require('./Routes/getRouter');
@@ -12,12 +13,13 @@ mongoose.connect(config.mongoURL, { useNewUrlParser: true, useUnifiedTopology: t
 .then(() => {
     const app = express();
     app.use(bodyParser.json());
+    app.use(cors());
     app.use('/', postRouter);
     app.use('/', getRouter);
     app.use('/', deleteRouter);
     app.use('/', patchRouter);
-    app.listen(3000, () => {
-        console.log("App listening on port 3000!");
+    app.listen(4000, () => {
+        console.log("App listening on port 4000!");
     });
 }, reason => {
     console.log(reason);

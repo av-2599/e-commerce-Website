@@ -1,0 +1,9 @@
+#quantityId {
+    width: 30%;
+    display: flex;
+    justify-content: space-between;
+}
+ 
+#inputId {
+    margin-left: 5px;
+}
