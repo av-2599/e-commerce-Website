@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { Button } from 'reactstrap';
 
 import { getUserCart, getSpecificProduct, updateUserCart, checkout } from '../../config/endpoint';
+import { getToken } from '../../config/token';
 import { List } from '../../components/list/list';
 import classes from './cart.module.css';
 
@@ -13,11 +14,15 @@ export const Cart = () => {
 
     useEffect(() => {
         (async () => {
-            const { status, data: { shoppingCart:{ products: productResponse } }} = await getUserCart();
-            const products = await fetchProduct(productResponse);
-            format(productResponse, products);
-            setCart(products);
-            setReload(false);
+            if(!getToken())
+                history.push('/login');
+            else {
+                const { status, data: { shoppingCart:{ products: productResponse } }} = await getUserCart();
+                const products = await fetchProduct(productResponse);
+                format(productResponse, products);
+                setCart(products);
+                setReload(false);
+            }
         })();
     }, [reload]);
 

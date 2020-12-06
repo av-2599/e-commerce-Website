@@ -49,7 +49,6 @@ export const getSpecificProduct = async productId => await callAPI(GET, `/getPro
 export const getUserCart = async () => await callAPI(GET, `/getCart`);
 export const checkout = async () => await callAPI(GET, `/checkout`);
 export const getOrders = async () => await callAPI(GET, `/getOrders`);
-export const signout = () => removeToken();
 
 /**
  * PATCH REQUEST

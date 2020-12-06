@@ -1,19 +1,26 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import { getSpecificProduct, getOrders, updateUserCart } from '../../config/endpoint';
 import { List } from '../../components/list/list';
 import classes from './orders.module.css';
+import { getToken } from '../../config/token';
 
 export const Orders = () => {
+    const history = useHistory();
     const [orders, setOrders] = useState([]);
 
     useEffect(() => {
         (async () => {
-            const { status, data: { message: productResponse } } = await getOrders();
-            console.log(productResponse);
-            const products = await fetchProduct(productResponse);
-            format(productResponse, products);
-            setOrders(products);
+            if (!getToken())
+                history.push('/login');
+            else {
+                const { status, data: { message: productResponse } } = await getOrders();
+                console.log(productResponse);
+                const products = await fetchProduct(productResponse);
+                format(productResponse, products);
+                setOrders(products);
+            }
         })();
     }, []);
 

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom'
 import {
     Navbar,
     NavbarBrand,
@@ -11,9 +12,25 @@ import {
     DropdownItem,
   } from 'reactstrap';
 
+import { removeToken, getToken } from '../../config/token';
 import classes from './navbar.module.css';
 
 export const NavBar = () => {
+    const history = useHistory();
+    /* Breaking Rule for Once. VERY SORRY!!! */
+    const [ authOption, setAuthOption ] = useState('Login');
+
+    const onAuth = () => {
+        if (!getToken()) {
+            setAuthOption('Sign-Out');
+            history.push('/login');
+        }
+        else {
+            removeToken();
+            setAuthOption('Login');
+            history.push('/');
+        }
+    }
 
     return(
         <div>
@@ -29,15 +46,11 @@ export const NavBar = () => {
                         <NavLink href="/orders">Orders</NavLink>
                     </NavItem>
                     <UncontrolledDropdown nav inNavbar>
-                        <DropdownToggle nav caret>
-                        Account
-                        </DropdownToggle>
+                        <DropdownToggle nav caret>Account</DropdownToggle>
                         <DropdownMenu right>
-                            <DropdownItem>
-                            Profile
-                            </DropdownItem>
-                            <DropdownItem>
-                            Sign In
+                            <DropdownItem>Profile</DropdownItem>
+                            <DropdownItem onClick={ () => onAuth() }>
+                                { authOption }
                             </DropdownItem>
                         </DropdownMenu>
                     </UncontrolledDropdown>

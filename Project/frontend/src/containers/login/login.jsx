@@ -26,8 +26,7 @@ export const Login = () => {
             }
             const { status, data } = await login(body);
 
-            (status === 200) ? history.push('/') : console.log(data);
-
+            status === 200 ? history.push('/') : console.log(data);
             console.log(data);
         }
     }
