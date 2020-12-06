@@ -83,8 +83,6 @@ router.post('/addProduct', jwt.validateToken, (req, res, next) => {
 
 // Add to cart.
 router.post('/addCart', jwt.validateToken, (req, res, next) => {
-    // TODO Check quantity with product quantity
-    // TODO Check if product to be added exists
     const userId = req.session.userId;
     const { product, quantity } = req.body.cart;
     const cart = new Cart({
@@ -98,6 +96,21 @@ router.post('/addCart', jwt.validateToken, (req, res, next) => {
     }))
     .catch(err => res.status(400).send({ 
         error: err.message 
+    }));
+});
+
+// Search for a product
+router.post('/searchProduct', (req, res, next) => {
+    const productName = new RegExp(req.body.name);
+    Product.find({ name: productName })
+    .then(result => {
+        console.log(result);
+        res.status(200).send({
+            message: result
+        })
+    })
+    .catch(err => res.status(400).send({
+        error: err.message
     }));
 });
 

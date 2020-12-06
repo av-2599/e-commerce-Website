@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { Button } from 'reactstrap';
 
 import { QuantityInput } from '../../components/quantityInput/quantityInput';
@@ -7,7 +7,7 @@ import { getSpecificProduct, addToCart } from '../../config/endpoint';
 import classes from './product.module.css';
 
 export const Product = () => {
-    
+    const history = useHistory();
     const { productId } = useParams();
     const [product, setProduct] = useState({});
     const [userQuantity, setUserQuantity] = useState(1);
@@ -27,6 +27,10 @@ export const Product = () => {
             }
         }
         const { status, data } = await addToCart(body);
+        if (status === 201)
+            alert("Item added to cart");
+        else
+            history.push('/login');
         console.log(data);
     }
 

@@ -1,6 +1,46 @@
 #homeDiv {
-    margin-top: 100px;
+    margin-top: 25px;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
+}
+
+#searchBar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 50px;
+}
+
+#searchForm {
+    display: flex;
+    flex-direction: row;
+}
+
+#searchBar #searchForm {
+    width: 100%;
+}
+
+#searchBar #searchForm #inputField {
+    width: 100%;
+}
+
+#inputField:focus {
+    border: 1px solid black;
+    box-shadow: 3px 3px;
+}
+
+#button {
+    margin-top: 0px;
+    width: 25%;
+    color: black;
+    border: 1px solid black;
+    border-radius: 2px;
+}
+
+#button:hover {
+    color: white;
+    border-radius: 2px;
+    background-color: black;
 }

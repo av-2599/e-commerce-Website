@@ -11,20 +11,22 @@ import { Register } from './containers/register/register';
 import { Home } from './containers/home/home';
 import { Product } from './containers/product/product';
 import { Cart } from './containers/cart/cart';
+import { Orders } from './containers/orders/orders';
 import './App.css';
 
 function App() {
-
   return (
     <div className="App">
-      <div id="navbarDiv">
-        <NavBar />
-      </div>
+      
       <Router>
+        <div id="navbarDiv">
+          <NavBar />
+        </div>
         <Switch>
           <Route path="/login" component={ Login } />
           <Route path="/register" component={ Register } />
           <Route path="/cart" component={ Cart } />
+          <Route path="/orders" component={ Orders } />
           <Route path="/:productId" component={ Product } />
           <Route path="/" component={ Home } />
         </Switch>

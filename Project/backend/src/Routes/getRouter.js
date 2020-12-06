@@ -61,7 +61,6 @@ router.get('/checkout', jwt.validateToken, (req, res, next) => {
     const userId = req.session.userId;
     Cart.find({ user: userId }, { _id: false })
     .then(carts => {
-        console.log("Carts:", carts);
         Order.insertMany(carts)
         .then(result => {
             for (let cart of result) {
@@ -80,7 +79,6 @@ router.get('/checkout', jwt.validateToken, (req, res, next) => {
                     })
                 })
                 .catch(err => {
-                    console.log(err);
                     res.status(400).send({
                         error: err.message
                     })
