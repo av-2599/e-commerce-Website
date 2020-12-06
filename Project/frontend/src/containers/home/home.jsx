@@ -78,7 +78,7 @@ export const Home = () => {
     return(
         <div id={ classes.homeDiv }>
             <div id={ classes.searchBar }>
-                <Form onSubmit={ (e) => onSearch(e) }>
+                <Form id={ classes.searchForm } onSubmit={ (e) => onSearch(e) }>
                     <Input
                         value={ searchInput }
                         onChange={ e => setSearchInput(e.target.value) } 
@@ -91,7 +91,6 @@ export const Home = () => {
                     <Button color="primary" onClick={() => orderProducts('L')} active={filter === 'L'}>Low to High</Button>
                     <Button color="primary" onClick={() => orderProducts('H')} active={filter === 'H'}>High to Low</Button>
                 </ButtonGroup>
-
             </div>
             { createCard() }
         </div>

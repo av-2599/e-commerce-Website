@@ -13,16 +13,16 @@
     padding: 50px;
 }
 
-form {
+#searchForm {
     display: flex;
     flex-direction: row;
 }
 
-#searchBar form {
+#searchBar #searchForm {
     width: 100%;
 }
 
-#searchBar form #inputField {
+#searchBar #searchForm #inputField {
     width: 100%;
 }
 
