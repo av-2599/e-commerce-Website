@@ -56,7 +56,7 @@ export const Cart = () => {
 
     const onCheckout = async () => {
         const { status, data } = await checkout();
-        (status === 200) ? history.push('/') : console.log(data);
+        (status === 200) ? history.push('/orders') : console.log(data);
     }
 
     const onDelete = async (cartId) => {

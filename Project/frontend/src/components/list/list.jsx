@@ -19,7 +19,7 @@ export const List = ({ product, quantity, isCustomizable, updateQuantity, delete
                     productQuantity={ product.quantity }
                     userQuantity={ quantity }
                     updateUserQuantity={ updateUserQuantity }
-                /> : `Quantity ${ product.quantity }`}
+                /> : `Quantity ${ quantity }`}
                 { isCustomizable ? <div>
                     <Button outline id={ classes.deleteButton } color='danger' onClick={ () => deleteCartId(product.cartId) } >Delete</Button>
                 </div> : '' }
