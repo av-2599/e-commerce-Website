@@ -13,6 +13,7 @@ export const List = ({ product, quantity, isCustomizable, updateQuantity, delete
     return(
         <div id={ classes.listContainer }>
             <div id={ classes.box }>
+                <img src={ product.image } alt='product image' />
                 <h1>{ product.name }</h1>
                 <h4>${ product.price }</h4>
                 {isCustomizable ? <QuantityInput

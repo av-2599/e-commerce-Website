@@ -64,10 +64,11 @@ router.post('/login', (req, res, next) => {
 // Add product.
 router.post('/addProduct', jwt.validateToken, (req, res, next) => {
     const userId = req.session.userId;
-    const {name, price, desc, quantity } = req.body.product;
+    const {name, image, price, desc, quantity } = req.body.product;
     const product = new Product({
         user: userId,
         name,
+        image,
         price,
         desc,
         quantity
