@@ -20,7 +20,6 @@ export const NavBar = () => {
             <Navbar color="dark" dark expand="md" fixed="top">
                 <NavbarBrand href="/"><strong>BuyFurniture</strong></NavbarBrand>
                 <Nav className="mr-auto" navbar>
-                 {/* TODO Search Bar. */}
                 </Nav>
                 <Nav navbar>
                     <NavItem>

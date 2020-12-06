@@ -101,4 +101,19 @@ router.post('/addCart', jwt.validateToken, (req, res, next) => {
     }));
 });
 
+// Search for a product
+router.post('/searchProduct', (req, res, next) => {
+    const productName = new RegExp(req.body.name);
+    Product.find({ name: productName })
+    .then(result => {
+        console.log(result);
+        res.status(200).send({
+            message: result
+        })
+    })
+    .catch(err => res.status(400).send({
+        error: err.message
+    }));
+});
+
 module.exports = router;
