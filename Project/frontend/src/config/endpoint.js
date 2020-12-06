@@ -1,5 +1,5 @@
-import { GET, POST, PATCH } from './requestType';
-import { setToken, removeToken, getToken } from './token';
+import { GET, POST, PATCH, DELETE } from './requestType';
+import { setToken, getToken } from './token';
 
 const BASE_URL = "http://localhost:4000";
 
@@ -17,8 +17,13 @@ const buildReqHeader = (type, data) => {
 }
 
 const callAPI = async (requestType, endpoint, data) => {
-    const request = (requestType === GET) ? buildReqHeader(requestType) :
-        buildReqHeader(requestType, data);
+    let request;
+    if (requestType === GET || requestType === DELETE)
+        request = buildReqHeader(requestType);
+    else
+        request = buildReqHeader(requestType, data);
+    // const request = (requestType === GET) ? buildReqHeader(requestType) :
+    //     buildReqHeader(requestType, data);
     const rawResponse = await fetch(BASE_URL + endpoint, request);
     const response = await rawResponse.json();
     return {
@@ -55,3 +60,9 @@ export const getOrders = async () => await callAPI(GET, `/getOrders`);
  */
 
 export const updateUserCart = async (cartId, data) => await callAPI(PATCH, `/updateCart/${ cartId }`, data);
+
+/**
+ * DELETE REQUEST
+ */
+
+ export const deleteUserCart = async cartId => await callAPI(DELETE, `/deleteCart/${ cartId }`);

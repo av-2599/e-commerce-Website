@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import { getSpecificProduct, getOrders, updateUserCart } from '../../config/endpoint';
+import { getSpecificProduct, getOrders } from '../../config/endpoint';
 import { List } from '../../components/list/list';
 import classes from './orders.module.css';
 import { getToken } from '../../config/token';
@@ -47,20 +47,9 @@ export const Orders = () => {
             displayList.push(<List
                 product={ element }
                 quantity={ element.userQuantity }
-                updateQuantity={ updateUserQuantity }
+                isCustomizable={ false }
             />);
         return displayList;
-    }
-
-    const updateUserQuantity = async (product, newUserQuantity) => {
-        await updateCart(product, newUserQuantity);
-    }
-
-    const updateCart = async (product, newQuantity) => {
-        const reqData = {
-            quantity: newQuantity
-        }
-        const { status, data } = await updateUserCart(product.cartId, reqData);
     }
 
     return(

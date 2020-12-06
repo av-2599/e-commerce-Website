@@ -83,8 +83,6 @@ router.post('/addProduct', jwt.validateToken, (req, res, next) => {
 
 // Add to cart.
 router.post('/addCart', jwt.validateToken, (req, res, next) => {
-    // TODO Check quantity with product quantity
-    // TODO Check if product to be added exists
     const userId = req.session.userId;
     const { product, quantity } = req.body.cart;
     const cart = new Cart({

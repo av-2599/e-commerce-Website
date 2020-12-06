@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, ButtonGroup } from 'reactstrap';
+import { useHistory } from 'react-router-dom';
 
 import { getProducts, addToCart, searchProduct } from '../../config/endpoint';
 import { ProductCard } from '../../components/card/card';
 import classes from './home.module.css';
 
 export const Home = () => {
+    const history = useHistory();
     const [ products, setProducts ] = useState([]);
     const [ userQuantity, setUserQuantity ] = useState(1);
     const [ searchInput, setSearchInput ] = useState('');
@@ -40,6 +42,10 @@ export const Home = () => {
             }
         }
         const { status, data } = await addToCart(body);
+        if (status === 201)
+            alert("Item added to cart");
+        else
+            history.push('/login');
     }
     
     const onSearch = async (e) => {

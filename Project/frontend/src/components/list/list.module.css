@@ -4,3 +4,8 @@
     margin: 30px;
     padding: 10px;
 }
+
+#deleteButton {
+    margin: 10px;
+    width: 50%;
+}

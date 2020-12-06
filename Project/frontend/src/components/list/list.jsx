@@ -1,9 +1,10 @@
 import React from 'react';
+import { Button } from 'reactstrap';
 
 import classes from './list.module.css';
 import { QuantityInput } from '../../components/quantityInput/quantityInput';
 
-export const List = ({ product, quantity, updateQuantity }) => {
+export const List = ({ product, quantity, isCustomizable, updateQuantity, deleteCartId }) => {
 
     const updateUserQuantity = newQuantity => {
         updateQuantity(product, newQuantity);
@@ -14,11 +15,14 @@ export const List = ({ product, quantity, updateQuantity }) => {
             <div id={ classes.box }>
                 <h1>{ product.name }</h1>
                 <h4>${ product.price }</h4>
-                <QuantityInput
+                {isCustomizable ? <QuantityInput
                     productQuantity={ product.quantity }
                     userQuantity={ quantity }
                     updateUserQuantity={ updateUserQuantity }
-                />
+                /> : `Quantity ${ product.quantity }`}
+                { isCustomizable ? <div>
+                    <Button outline id={ classes.deleteButton } color='danger' onClick={ () => deleteCartId(product.cartId) } >Delete</Button>
+                </div> : '' }
             </div>
         </div>
     );
