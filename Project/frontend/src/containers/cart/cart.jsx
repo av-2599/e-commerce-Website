@@ -5,6 +5,7 @@ import { Button } from 'reactstrap';
 import { getUserCart, getSpecificProduct, updateUserCart, deleteUserCart, checkout } from '../../config/endpoint';
 import { getToken } from '../../config/token';
 import { List } from '../../components/list/list';
+import { Price } from '../../components/price/price';
 import classes from './cart.module.css';
 
 export const Cart = () => {
@@ -65,6 +66,18 @@ export const Cart = () => {
         console.log(data);
     }
 
+    const getPriceAndQuantity = () => {
+        let priceQuantity = [];
+        for (let product of cart) {
+            priceQuantity.push({
+                price: product.price,
+                quantity: product.userQuantity
+            });
+        }
+
+        return priceQuantity;
+    }
+
     const createList = () => {
         let displayList = [];
         for (let element of cart)
@@ -85,6 +98,7 @@ export const Cart = () => {
             </div>
             <div id={ classes.checkout }>
                 <div id={ classes.checkoutButton }>
+                    <Price products={ getPriceAndQuantity() }/>
                     <Button outline color="warning" onClick={ e => onCheckout() }>Checkout</Button>
                 </div>
             </div>

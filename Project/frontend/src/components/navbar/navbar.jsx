@@ -40,6 +40,9 @@ export const NavBar = () => {
                 </Nav>
                 <Nav navbar>
                     <NavItem>
+                        <NavLink href="/add">Add Product</NavLink>
+                    </NavItem>
+                    <NavItem>
                         <NavLink href="/cart">Cart</NavLink>
                     </NavItem>
                     <NavItem>

@@ -14,6 +14,7 @@
 }
 
 #checkout {
+    text-align: center;
     display: inline-table;
     width: 50%;
     margin: 10px;

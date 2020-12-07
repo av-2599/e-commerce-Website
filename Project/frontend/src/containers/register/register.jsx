@@ -21,8 +21,10 @@ export const Register = () => {
 
     const submit = async (e) => {
         e.preventDefault();
+        if (!firstName || !lastName || !email || !password || !phone)
+            alert('Please fill in all fields to register');
         if (!validFirstName || !validLastName || !validEmail || !validPassword || !validPhone)
-            console.log("Can't submit");
+            alert("Can't submit. Please check all your fields");
         else {
             const body = {
                 user: {
@@ -42,8 +44,10 @@ export const Register = () => {
                     }
                 }
                 const { status: loginStatus, data: loginData } = await login(loginBody);
-                (loginStatus === 200) ? history.push('/') : console.log(loginData);
+                (loginStatus === 200) ? history.push('/') : alert(loginData.error);
             }
+            else
+                alert("User already exists");
         }
     }
 

@@ -44,6 +44,8 @@ export const login = async data => {
 export const register = async data => await callAPI(POST, `/register`, data);
 export const addToCart = async data => await callAPI(POST, `/addCart`, data);
 export const searchProduct = async data => await callAPI(POST, `/searchProduct`, data);
+export const addProduct = async data => await callAPI(POST, `/addProduct/`, data);
+export const getUser = async data => await callAPI(POST, `/getUser`, data);
 
 /**
  * GET REQUEST

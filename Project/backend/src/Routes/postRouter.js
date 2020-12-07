@@ -36,13 +36,13 @@ router.post('/login', (req, res, next) => {
     .then(user => {
         if (!user)
             return res.status(401).send({ 
-                message: 'Authentication failed' 
+                error: 'Authentication failed' 
             });
         else {
             bcrypt.compare(loginUser.password, user.password, (err, result) => {
                 if (err || !result)
                     return res.status(401).send({ 
-                        message: 'Authentication failed' 
+                        error: 'Authentication failed' 
                     });
                 else {
                     const token = jwt.createToken({ 
@@ -109,6 +109,19 @@ router.post('/searchProduct', (req, res, next) => {
         res.status(200).send({
             message: result
         })
+    })
+    .catch(err => res.status(400).send({
+        error: err.message
+    }));
+});
+
+// Get specific user
+router.post('/getUser', (req, res, next) => {
+    const userEmail = req.body.email;
+    User.findOne({ email: userEmail })
+    .then(result => {
+        (result) ? res.status(200).send({ message: "Good" }) :
+            res.status(400).send({ error: "Email does not exist" });
     })
     .catch(err => res.status(400).send({
         error: err.message
