@@ -10,6 +10,7 @@ export const ProductCard = ({ product, addCart, quantity, updateQuantity }) => {
     return(
         <div id={ classes.cardId }>
             <h4>{ product.name }</h4>
+            <img src={ product.image } alt='Product Image' />
             <p>${ product.price }</p>
             <QuantityInput
                 productQuantity={ product.quantity }

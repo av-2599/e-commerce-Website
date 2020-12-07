@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 import { EMAIL_REGEX, PWD_REGEX } from '../../config/regex';
-import { login } from '../../config/endpoint';
+import { login, getUser } from '../../config/endpoint';
 import classes from './login.module.css';
 
 export const Login = () => {
@@ -15,8 +15,10 @@ export const Login = () => {
     
     const submit = async (e) => {
         e.preventDefault();
+        if (!email || !password)
+            alert("Please enter all fields to login");
         if (!validEmail || !validPassword)
-            console.log("Can't submit");
+            alert("Please verify your fields");
         else {
             const body = {
                 user: { 
@@ -26,8 +28,22 @@ export const Login = () => {
             }
             const { status, data } = await login(body);
 
-            status === 200 ? history.push('/') : console.log(data);
+            status === 200 ? history.push('/') : alert(data.error);
             console.log(data);
+        }
+    }
+
+    const checkUser = async() => {
+        const body = {
+            email
+        }
+
+        const { status, data } = await getUser(body);
+        if (status === 200)
+            setValidEmail(true);
+        else {
+            alert(data.error);
+            setValidEmail(false);
         }
     }
 
@@ -57,6 +73,7 @@ export const Login = () => {
                                     placeholder="example@example.com" 
                                     value={ email }
                                     onChange={ e => onEmailChange(e.target.value) }
+                                    onBlur={ () => checkUser() }
                                     valid={ !email ? null : validEmail }
                                     invalid={ !email ? null : !validEmail }
                                 />

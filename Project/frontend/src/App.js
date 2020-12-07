@@ -12,6 +12,7 @@ import { Home } from './containers/home/home';
 import { Product } from './containers/product/product';
 import { Cart } from './containers/cart/cart';
 import { Orders } from './containers/orders/orders';
+import { Add } from './containers/add/add';
 import './App.css';
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path="/register" component={ Register } />
           <Route path="/cart" component={ Cart } />
           <Route path="/orders" component={ Orders } />
+          <Route path="/add" component={ Add } />
           <Route path="/:productId" component={ Product } />
           <Route path="/" component={ Home } />
         </Switch>

@@ -38,6 +38,7 @@ export const Product = () => {
         <div id={ classes.productContainer }>
             <div id={ classes.innerDivId }>
                 <h1>{ product.name }</h1>
+                <img src={ product.image } alt='Product Image' />
                 <h2>{ product.price }</h2>
                 <h3>{ product.desc }</h3>
                 <QuantityInput
