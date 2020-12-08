@@ -1,2 +1,1 @@
-# WebsiteWPL
-WPL Final Project
+# e-commerce Website
