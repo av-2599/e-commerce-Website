@@ -1,5 +1,5 @@
 config = {
-    mongoURL: 'mongodb+srv://adiviswa:Blastingdiapers1-@zeus.wyvkg.azure.mongodb.net/test',
+    mongoURL: 'mongoURI',
     JWT_KEY: 'secret'
 };
 
